@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -19,6 +20,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug{
+            buildConfigField "String", "BASE_URL", "\"https://api.github.com/search/repositories?q=created:>\""
+        }
     }
 }
 
@@ -31,4 +35,22 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //timber
+    kapt 'com.jakewharton.timber:timber:4.7.1'
+    //retrofit interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    //circle image view
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    //dagger
+    implementation 'com.google.dagger:dagger:2.13'
+    kapt 'com.google.dagger:dagger-compiler:2.13'
+    kaptTest 'com.google.dagger:dagger-compiler:2.13'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.2'
+    // JSON Converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 }
