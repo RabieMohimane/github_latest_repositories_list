@@ -1,13 +1,14 @@
-package com.rabie.githublatestrepositories.utils
+package com.rabie.githublatestrepositories.data.repository
+
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonSerializer
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import com.quizy.data.remote.AppService
-import com.quizy.data.repository.UserRepository
-import com.revotrends.eliteswap.BuildConfig
-import com.revotrends.eliteswap.utils.TokenAuthenticator
+import com.rabie.githublatestrepositories.BuildConfig
+import com.rabie.githublatestrepositories.data.remote.AppApi
+import com.rabie.githublatestrepositories.data.remote.AppService
+
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -17,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Singleton
+
 @Module
 class AppModule {
 
@@ -66,8 +67,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideUserRepository(userService: AppService): UserRepository {
-        return UserRepository(userService )
+    fun provideUserRepository(userService: AppService): AppRepository {
+        return AppRepository(userService )
     }
 
 }
