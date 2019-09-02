@@ -6,13 +6,14 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface AppApi {
 
     @Headers("accept: application/json")
-    @GET("{startDate}&sort=stars&order=desc&page={page}")
-    fun getRepositories(@Path("startDate") startDate: String, @Path("startDate") page: Int): Single<Response<RepositoriesWrapper>>
+    @GET("repositories?sort=stars&order=desc")
+    fun getRepositories(@Query("q") startDate: String, @Query("page") page: Int): Single<Response<RepositoriesWrapper>>
 
 
 }
