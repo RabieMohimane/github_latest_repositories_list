@@ -4,24 +4,24 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Owner(
-    var avatar_url: String = "",
-    var events_url: String = "",
-    var followers_url: String = "",
-    var following_url: String = "",
-    var gists_url: String = "",
-    var gravatar_id: String = "",
-    var html_url: String = "",
+    var avatar_url: String? = "",
+    var events_url: String? = "",
+    var followers_url: String? = "",
+    var following_url: String? = "",
+    var gists_url: String? = "",
+    var gravatar_id: String? = "",
+    var html_url: String? = "",
     var id: Int = 0,
-    var login: String = "",
-    var node_id: String = "",
-    var organizations_url: String = "",
-    var received_events_url: String = "",
-    var repos_url: String = "",
-    var site_admin: Boolean = false,
-    var starred_url: String = "",
-    var subscriptions_url: String = "",
-    var type: String = "",
-    var url: String = ""
+    var login: String? = "",
+    var node_id: String? = "",
+    var organizations_url: String? = "",
+    var received_events_url: String? = "",
+    var repos_url: String? = "",
+    var site_admin: Boolean? = false,
+    var starred_url: String? = "",
+    var subscriptions_url: String? = "",
+    var type: String? = "",
+    var url: String? = ""
 ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -37,7 +37,7 @@ data class Owner(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readByte() != 0.toByte(),
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean,
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -59,7 +59,7 @@ data class Owner(
         parcel.writeString(organizations_url)
         parcel.writeString(received_events_url)
         parcel.writeString(repos_url)
-        parcel.writeByte(if (site_admin) 1 else 0)
+        parcel.writeValue(site_admin)
         parcel.writeString(starred_url)
         parcel.writeString(subscriptions_url)
         parcel.writeString(type)

@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class License(
-    var key: String = "",
-    var name: String = "",
-    var node_id: String = "",
-    var spdx_id: String = "",
-    var url: String = ""
+    var key: String? = "",
+    var name: String? = "",
+    var node_id: String? = "",
+    var spdx_id: String? = "",
+    var url: String? = ""
 ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),

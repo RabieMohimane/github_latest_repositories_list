@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rabie.githublatestrepositories.R
 import com.rabie.githublatestrepositories.viewmodels.AppViewModel
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
+    private val dateFormater=SimpleDateFormat("yyyy-MM-dd")
     private lateinit var mViewModel: AppViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
@@ -27,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(com.rabie.githublatestrepositories.R.layout.activity_main)
         progressBar=findViewById(R.id.progressBar)
         mViewModel = ViewModelProviders.of(this).get(AppViewModel::class.java)
-        mViewModel.getGitHubLatestRepositories("created:>2019-08-01", page).observe(this, Observer {
+        mViewModel.getGitHubLatestRepositories("created:>${dateFormater.format(getThirtyDaysAgo())}", page).observe(this, Observer {
             if (it.isSuccessful) {
                 progressBar.visibility = View.GONE
 
@@ -62,11 +65,17 @@ class MainActivity : AppCompatActivity() {
 
     fun loadMore() {
         page++
-        mViewModel.getGitHubLatestRepositories("created:>2019-08-01", page).observe(this, Observer {
+        mViewModel.getGitHubLatestRepositories("created:>${dateFormater.format(getThirtyDaysAgo())}", page).observe(this, Observer {
             if (it.isSuccessful) {
                 viewAdapter.addItems(it!!.body()!!.items)
                 progressBar.visibility = View.GONE
             }
         })
+    }
+    fun getThirtyDaysAgo(): Date {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -30)
+
+        return calendar.time
     }
 }
