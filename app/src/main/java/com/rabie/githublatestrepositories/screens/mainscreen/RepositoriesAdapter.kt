@@ -1,5 +1,6 @@
 package com.rabie.githublatestrepositories.screens.mainscreen
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.rabie.githublatestrepositories.R
 import com.rabie.githublatestrepositories.data.models.Item
+import com.rabie.githublatestrepositories.screens.repodetails.DetailsActivity
 
 
 class RepositoriesAdapter(var items: List<Item>) : RecyclerView.Adapter<RepositoriesAdapter.MyViewHolder>() {
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoriesAdapter.MyViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -33,6 +38,9 @@ class RepositoriesAdapter(var items: List<Item>) : RecyclerView.Adapter<Reposito
                     "repos clicked ${items.get(holder.adapterPosition).full_name}",
                     Toast.LENGTH_SHORT
                 ).show()
+                val intent=Intent(holder.itemView.context,DetailsActivity::class.java)
+                intent.putExtra("repo",items.get(holder.adapterPosition))
+                holder.itemView.context.startActivity(intent)
             }
 
         })
@@ -49,8 +57,8 @@ class RepositoriesAdapter(var items: List<Item>) : RecyclerView.Adapter<Reposito
         var btnRepo: ConstraintLayout
 
         init {
-            tvRepoName = itemView.findViewById(R.id.tvRepository)
-            btnRepo = itemView.findViewById(R.id.btnRepo)
+            tvRepoName = itemView.findViewById(com.rabie.githublatestrepositories.R.id.tvRepository)
+            btnRepo = itemView.findViewById(com.rabie.githublatestrepositories.R.id.btnRepo)
         }
 
     }
